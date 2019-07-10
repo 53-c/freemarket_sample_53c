@@ -167,6 +167,10 @@
              margin-top: 30px; 
            }
             .form-area {
+              .required-tag--brand{
+                background: gray;
+                color: $white;
+              }
               label {
                 font-size: 14px;
                 font-weight: 900;

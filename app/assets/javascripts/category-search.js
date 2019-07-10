@@ -1,14 +1,22 @@
 $(document).on('turbolinks:load', function(){
+  // $(window).on('read', function(){
+  //   console.log("1");
+  //   var input = gon.category_user_select.category_id;
+  //   var child_html = `<select name="item[category_attributes][id]" id="item_category_attributes_child_id">                 `
+  //   $(".select-wrap-category").append(child_html);
+  //   var grandchild_html = `<select name="item[category_attributes][id]" id="item_category_attributes_grandchild_id"> 
+  //               <i class="fas fa-chevron-down"></i>    
+  //               `
+  //   $(".select-wrap-category").append(grandchild_html);
+  //   console.log(gon.category_user_select_category);
+
+  // });
+
 // 子カテゴリーを表示
-  function category_child_box(category, user_select){
-    var child_category = [];
+  function category_child_box(child_category){
     var html = `<select name="item[category_attributes][id]" id="item_category_attributes_child_id">                 `
     $(".select-wrap-category").append(html);
 
-    child_category = category.filter(function(value){// 子カテゴリーの配列を作成
-      if (user_select == value.parent_id)
-      return true;
-    });
     var select = document.getElementById('item_category_attributes_child_id');
     var option = document.createElement('option');// 子カテゴリー用のoption要素を作成
     option.setAttribute('value', "");
@@ -23,17 +31,11 @@ $(document).on('turbolinks:load', function(){
     };
   }
 //孫カテゴリーを表示
-  function category_grandchild_box(category, user_select){
-    var grandchild_category = [];
+  function category_grandchild_box(grandchild_category){
     var html = `<select name="item[category_attributes][id]" id="item_category_attributes_grandchild_id"> 
                 <i class="fas fa-chevron-down"></i>    
                 `
     $(".select-wrap-category").append(html);
-
-    grandchild_category = category.filter(function(value){
-      if (user_select == value.parent_id)
-      return true;
-    });
 
     var select = document.getElementById('item_category_attributes_grandchild_id');
     var option = document.createElement('option');
@@ -52,15 +54,27 @@ $(document).on('turbolinks:load', function(){
   $("#item_category_attributes_id").on("change", function(){
     $("#item_category_attributes_child_id").remove();
     $("#item_category_attributes_grandchild_id").remove();
+    var child_category = [];
     var user_select_category = $("#item_category_attributes_id option:selected").val();
-    category_child_box(gon.category,user_select_category);
+
+    child_category = gon.category.filter(function(value){// 子カテゴリーの配列を作成
+      if (user_select_category == value.parent_id)
+      return true;
+    });
+    category_child_box(child_category);
   });
 
 // 子カテゴリーの選択をuserが変更したら孫カテゴリーを表示
   $(document).on("change","#item_category_attributes_child_id", function(){
     $("#item_category_attributes_grandchild_id").remove();
+    var grandchild_category = [];
     var user_select_category = $("#item_category_attributes_child_id option:selected").val();
-    category_grandchild_box(gon.category,user_select_category);
+
+    grandchild_category = gon.category.filter(function(value){
+      if (user_select_category == value.parent_id)
+      return true;
+    });
+    category_grandchild_box(grandchild_category);
   });
 });
 

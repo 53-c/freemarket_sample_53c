@@ -15,34 +15,35 @@ class ItemsController < ApplicationController
   end
 
   def sell
-    @items = Item.new
-    @items.build_brand
-    @items.build_category
-    @items.item_images.build
+    @item = Item.new
+    @item.build_brand
+    @item.build_category
+    @item.item_images.build
 
     @categories = Category.where(parent_id: 0)
     gon.category = Category.all
 
   end
   def edit
-    @items.build_brand
-    @items.build_category
-    @items.item_images.build
+    @item.build_brand
+    @item.build_category
+    @item.item_images.build
 
     @categories = Category.where(parent_id: 0)
     gon.category = Category.all
-    gon.category_user_select = Category.find(params[:id])
-    gon.items_images = @items.item_images
+    gon.category_user_select = Item.find(params[:id])
+    gon.category_user_select_category = Item.find(params[:id]).category
+    gon.items_images = @item.item_images
   end
 
   def update
     items_params
-    @items = Item.new(@params_items)
+    @item = Item.new(@params_item)
    
-    if @items.save(context: :sell_step)
-      @items_status = OrderStatus.create(status: 1, item_id: Item.all.last().id)
+    if @item.save(context: :sell_step)
+      @item_status = OrderStatus.create(status: 1, item_id: Item.all.last().id)
     else
-      @items = Item.new(@params_items)
+      @item = Item.new(@params_item)
       render :sell
       respond_to do |format|
         format.json
@@ -52,12 +53,12 @@ class ItemsController < ApplicationController
 
   def create
     items_params
-    @items = Item.new(@params_items)
+    @item = Item.new(@params_item)
    
-    if @items.save(context: :sell_step)
+    if @item.save(context: :sell_step)
       @items_status = OrderStatus.create(status: 1, item_id: Item.all.last().id)
     else
-      @items = Item.new(@params_items)
+      @item = Item.new(@params_item)
       render :sell
       respond_to do |format|
         format.json
