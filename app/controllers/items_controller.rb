@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :set_item, only: [:show, :edit]
+  before_action :set_item, only: [:show]
   before_action :set_category_and_brand_info, only: [:sell, :edit, :update, :create]
 
 
@@ -15,36 +15,34 @@ class ItemsController < ApplicationController
   end
 
   def sell
-    @item = Item.new
-    @item.build_brand
-    @item.build_category
-    @item.item_images.build
+    @items = Item.new
+    @items.build_brand
+    @items.build_category
+    @items.item_images.build
 
     @categories = Category.where(parent_id: 0)
     gon.category = Category.all
 
   end
   def edit
-    @item.build_brand
-    @item.build_category
-    @item.item_images.build
+    @items = Item.find(params[:id])
+    @items.build_brand
+    @items.build_category
+    @items.item_images.build
 
     @categories = Category.where(parent_id: 0)
     gon.category = Category.all
     gon.category_user_select = Item.find(params[:id])
     gon.category_user_select_category = Item.find(params[:id]).category
-    gon.items_images = @item.item_images
+    gon.items_images = @items.item_images
   end
 
   def update
+    @items = Item.find(params[:id])
     items_params
-    @item = Item.new(@params_item)
-   
-    if @item.save(context: :sell_step)
-      @item_status = OrderStatus.create(status: 1, item_id: Item.all.last().id)
+    if @items.update(@params_items)
     else
-      @item = Item.new(@params_item)
-      render :sell
+      @items = Item.new(@params_items)
       respond_to do |format|
         format.json
       end
@@ -53,12 +51,11 @@ class ItemsController < ApplicationController
 
   def create
     items_params
-    @item = Item.new(@params_item)
+    @items = Item.new(@params_items)
    
-    if @item.save(context: :sell_step)
-      @items_status = OrderStatus.create(status: 1, item_id: Item.all.last().id)
+    if @items.save
+      OrderStatus.create(status: 1, item_id: Item.all.last().id)
     else
-      @item = Item.new(@params_item)
       render :sell
       respond_to do |format|
         format.json
@@ -96,8 +93,7 @@ class ItemsController < ApplicationController
 
     @params_brands = params.require(:item).require(:brand_attributes).permit(:name)
     @params_brands = @brands.find_by(name: @params_brands[:name])
-    
-
+  
     if @params_brands.present?
       @params_brands = @params_brands[:id]
     end

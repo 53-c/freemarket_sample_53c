@@ -1,9 +1,14 @@
 $(document).on('turbolinks:load', function(){
-  console.log(location.pathname);
-  // gon.category_user_select.id
+// 商品編集画面の初期値入力
 
-  if(location.pathname == )
-
+if(typeof gon != 'undefined') {
+  if(typeof gon.category_user_select != 'undefined') {
+    if (location.href == window.location.protocol + '//' + window.location.host + '/items/' + gon.category_user_select.id + '/edit'){
+      console.log("a")
+    calcManey(gon.category_user_select.price);
+    };  
+  }
+}  
   function calcManey(input){
     fee = $(".right-price");
     fee_maney = Math.floor(input * 0.1);

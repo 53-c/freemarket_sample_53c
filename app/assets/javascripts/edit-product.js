@@ -1,26 +1,80 @@
 $(document).on('turbolinks:load', function(){
-//   $(document).ready(function(){
-//     old_file_data = document.getElementById('item_item_images_attributes_0_id') 
+// 商品編集画面の初期値入力
+var current_url = location.href;
 
-// // 価格の表示
-//     var input = gon.category_user_select.price,
-//     fee = $(".right-price"),
-//     fee_maney = Math.floor(input * 0.1),
-//     maney = $(".right-price-maney"),
-//     get_maney = (input - fee_maney).toLocaleString();
-//     chn_get_maney = "¥" + get_maney;
+  if(typeof gon != 'undefined') {
+    if(typeof gon.category_user_select != 'undefined') {
+      var edit_url = window.location.protocol + '//' + window.location.host + '/items/' + gon.category_user_select.id + '/edit';    
+      if (current_url == edit_url){
+        // $(window).one("load", function(e){
+          $("#file-drop-zone").nextAll().remove();
+          $("#file-drop-zone--next").nextAll().remove();
 
-//     if (input >= 300 && input <= 9999999){
-//       fee.append(fee_maney.toLocaleString());
-//       maney.append(chn_get_maney);
-//       }
-//     else {
-//       fee.append("-----");
-//       maney.append("-----");
-//     }
-    
-
-//   })
+          for (i = 0; i < gon.items_images.length - 1; i++){//upload_files内のデータを取り出し、それぞれにキーを分配する。
+            html =` <ul id="add_file_image">
+                      <li id="image_display_container">
+                        <img src="${gon.items_images[i].image.url}" class="preview" title="${gon.items_images[i].image}"></img>
+                        <div id ="remove_edit_container">
+                          <div class='image-edit-btn'>編集</div>                                
+                          <div class='image-remove-btn'>削除</div>
+                        </div>
+                      </li>
+                    </ul>
+                    `
+            if(4 < i && i <= 9 ){
+              $(".sell-box_container__drop-box--next").css({  // 入力ファイルが5以上のとき、次のドロップゾーンを表示する。
+                "display" : "block"
+              })
+            }
+            else{
+              $(".sell-box_container__drop-box--next").css({
+              "display" : "none"
+            })
+            }
+            if(i <= 4){
+              $("#preview").append(html);
+              };
+              if(4 < i && i <= 9 ){
+                $("#preview--next").append(html);
+              };
+              if(i == 0){
+                $("#file-drop-zone").css({  // 入力ファイルがないとき、最初のドロップゾーンを表示したままにし、幅は100％にする。
+                  "display" : "block",
+                  "width" : "100%"  
+                });
+              }  
+              if(0 < i && i < 4){
+                $("#file-drop-zone").css({  // 入力ファイルが5以下のとき、最初のドロップゾーンの幅を80%ずつ縮める。
+                "display" : "block",
+                "width" : "80%"  
+                });
+              }  
+              if(i == 4){
+                $("#file-drop-zone").css({  // 入力ファイルが5のとき、最初のドロップゾーンを非表示にする。
+                  "display" : "none"
+                });    
+                $("#file-drop-zone--next").css({  // 入力ファイルが5のとき、次のドロップゾーンを非表示にする。
+                  "display" : "block",
+                  "width" : "100%"  
+                });    
+              }
+              if(4 < i && i < 9 ){
+                $("#file-drop-zone--next").css({  // 入力ファイルが5以上のとき、次のドロップゾーンを80%ずつ縮める。
+                  "display" : "block",
+                  "width" : "80%"  
+              });
+              }
+              if(i == 9){
+                $("#file-drop-zone--next").css({  // 入力ファイルが10のとき、次のドロップゾーンを非表示にする。
+                  "display" : "none"
+              });    
+            }                   
+          };
+        //   e.stopPropagation();
+        // });
+      }
+    }
+  }
 
     var dropzone = document.getElementById('file-drop-zone');
     var dropzone_next = document.getElementById('file-drop-zone--next');
@@ -76,8 +130,8 @@ $(document).on('turbolinks:load', function(){
         $("#file-drop-zone--next").css({  // 入力ファイルが10のとき、次のドロップゾーンを非表示にする。
           "display" : "none"
       });    
-      } 
-    };
+    } 
+  };
     // 入力した画像＋削除・編集ボタンの表示
     function display_preview(src,title){ 
       html =` <ul id="add_file_image">
@@ -162,9 +216,9 @@ $(document).on('turbolinks:load', function(){
 
     // ファイルから選択したファイルを画像で表示
     $(document).on('change','.file-send-btn',function(e){  // ファイル選択で選択したファイルをupload_filesに格納する。
-      console.log(e);
       var input_file = e.target.files;
       $('#product-sell-btn').prop('disabled', false);
+      console.log(upload_files)
 
       if(input_file.length != 0){
         upload_files.push(input_file);  // upload_filesに選択ファイルを格納する。
@@ -354,6 +408,7 @@ $(document).on('turbolinks:load', function(){
       e.preventDefault();
       var formdata = new FormData(this);
       var url = window.location.protocol + '//' + window.location.host + '/items';    
+      var type = "POST"
       var ajax_files = [];
       $(".sell-form_image-box p:last").remove();
       
@@ -361,22 +416,29 @@ $(document).on('turbolinks:load', function(){
         $(".sell-form_image-box").append(`<p>画像を登録してください。</p>`)//validationメッセージを表示する。
         $(".sell-form_image-box p:last").css({"color" : "red"});
         $('html,body').animate({scrollTop: 0},'fast');
+        console.log(upload_files.length);
         return false;
       };
       for (i = 0; i < upload_files.length; i++){//upload_files内のデータを取り出し、それぞれにキーを分配する。
         ajax_files[i] = "item[item_images_attributes]" + "[" + i + "]" + '[image]';
         formdata.append(ajax_files[i], upload_files[i][0]);
       };
+      if (current_url == edit_url){
+        url = edit_url
+        type = "patch"
+      }
+      console.log(url);
+      console.log(type);
 
-      $.ajax({
-        url: url,
-        type: "POST",
-        data: formdata,
-        cache: false,
-        processData: false,
-        contentType: false,
-        dataType: 'json'
-      })
+        $.ajax({
+          url: url,
+          type: type,
+          data: formdata,
+          cache: false,
+          processData: false,
+          contentType: false,
+          dataType: 'json'
+        })
   //validation
       .always(function(items){
         $('#product-sell-btn').prop('disabled', false);

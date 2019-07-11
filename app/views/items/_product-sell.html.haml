@@ -3,7 +3,7 @@
     %h2.header-text
       商品の情報を入力
     .sell-form
-      =form_for @item, multipart:true do |f|
+      =form_for @items, multipart:true do |f|
         .sell-form_image-box
           .sell-upload_text-top
             出品画像
@@ -23,10 +23,6 @@
                   %label#file-drop-zone--next
                     %i.fas.fa-camera
                     =fin.file_field :image, class: "file-send-btn", multiple: true
-            -# .sell-box_container__drop-box--product-edit
-            -#   #preview--product-edit
-            -#     =@item.image_items.each do |image|
-            -#       =imageimage.image.url            
         .sell-content
           .form_item-name
             %label 商品名

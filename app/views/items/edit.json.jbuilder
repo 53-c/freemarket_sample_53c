@@ -1,0 +1,10 @@
+json.name  @items.name
+json.detail  @items.detail
+json.condition  @items.condition
+json.delivery_cost  @items.delivery_cost
+json.delivery_prefecture  @items.delivery_prefecture
+json.days_to_ship  @items.days_to_ship
+json.delivery_method  @items.delivery_method
+json.price  @items.price
+json.category_id  @items.category_id
+json.brand_id  @items.brand_id

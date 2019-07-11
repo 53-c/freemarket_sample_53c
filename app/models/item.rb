@@ -9,15 +9,15 @@ class Item < ApplicationRecord
   accepts_nested_attributes_for :category
   accepts_nested_attributes_for :item_images
   validates_associated :item_images
-  validates :name, presence: true, length: { maximum: 75}, on: :sell_step
-  validates :detail, presence: true, length: { maximum: 1000}, on: :sell_step
-  validates :condition, presence: true, on: :sell_step
-  validates :delivery_cost, presence: true, on: :sell_step
-  validates :delivery_prefecture, presence: true, on: :sell_step
-  validates :days_to_ship, presence: true, on: :sell_step
-  validates :delivery_method, presence: true, on: :sell_step
-  validates :price, presence: true, numericality:{less_than_or_equal_to:99999999, greater_than_or_equal_to:300}, on: :sell_step
-  validates :category_id, presence: true, on: :sell_step
+  validates :name, presence: true, length: { maximum: 75}
+  validates :detail, presence: true, length: { maximum: 1000}
+  validates :condition, presence: true
+  validates :delivery_cost, presence: true
+  validates :delivery_prefecture, presence: true
+  validates :days_to_ship, presence: true
+  validates :delivery_method, presence: true
+  validates :price, presence: true, numericality:{less_than_or_equal_to:99999999, greater_than_or_equal_to:300}
+  validates :category_id, presence: true
 
   enum condition: {"新品、未使用": 1, "未使用に近い": 2, "目立った傷や汚れなし": 3, "やや傷や汚れあり": 4, "傷や汚れあり": 5, "全体的に状態が悪い": 6}
 
