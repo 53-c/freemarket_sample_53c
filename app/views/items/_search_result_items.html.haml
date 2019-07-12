@@ -1,0 +1,8 @@
+= link_to "/items/#{item.id}" do
+  .search-result__items__box 
+    .search-result__items__box__image
+      = image_tag(item.item_images.first.image.url, size: "160x160")
+    .search-result__items__box__price
+      = number_to_currency(item.price, :unit => "¥ ", :precision => 0)
+    .search-result__items__box__text
+      = item.name

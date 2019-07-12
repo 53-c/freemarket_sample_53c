@@ -1,8 +1,8 @@
 .user__container.login__container
   %header.signup__container__header
-    %h1
-      = link_to root_path do
-        = image_tag("logosignin.svg", alt: "mercari", width: "185", height: "49")
+    %h1   
+      = link_to "/" do
+        = image_tag("https://www-mercari-jp.akamaized.net/assets/img/common/common/logo.svg", alt: "mercari", width: "185", height: "49")
     %nav.progress__bar
       %ol
         %li.progress-active
@@ -14,7 +14,7 @@
           .progress-dot
             .progress__status
         %li
-          住所入力
+          お届け先住所入力
           .progress-dot
             .progress__status
         %li
@@ -26,7 +26,7 @@
           .progress-dot
             .progress__status-last
 
-  = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+  = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { id: "charge-form2" }) do |f|
     .section
       %main.user__container__main
         .signup__container
@@ -38,13 +38,19 @@
                 = f.label :ニックネーム
                 %span.form-require 必須
                 %br/
-                = f.text_field :nickname, autofocus: true, autocomplete: "nickname", id: "nickname", class: "input-default", placeholder: "例）メルカリ太郎"
-                = f.hidden_field :profile_id, value: "1"
-                = f.hidden_field :card_info_id, value: "1"
-                = f.hidden_field :user_info_id, value: "1"
+                = f.fields_for :profile, Profile.new do |profile|
+                  = profile.text_field :nickname, autofocus: true, autocomplete: "nickname", id: "nickname", class: "input-default", value: @getname, placeholder: "例）メルカリ太郎"
                 %ul
                   %li#error-nicnname.error-notice-signin
 
+              .signup__inner__group
+                = f.label :メールアドレス
+                %span.form-require 必須
+                %br/
+                = f.text_field :email, autofocus: true, autocomplete: "email", id: "email", class: "input-default", value: @getemail, placeholder: "PC・携帯どちらでも可"
+                %ul
+                  %li#error-email.error-notice-signin
+                  %li#error-email1.error-notice-signin
               .signup__inner__group
                 .signup__inner__group__head
                   ="本人確認"
@@ -54,21 +60,24 @@
                 = f.label :'姓 (全角)'
                 %span.form-require 必須
                 %br/
-                = f.text_field :last_name, autofocus: true, autocomplete: "last_name", id: "last_name", class: "input-default", placeholder: "例）山田"
+                = f.fields_for :profile, Profile.new do |profile|
+                  = profile.text_field :last_name, autofocus: true, autocomplete: "last_name", id: "last_name", class: "input-default", placeholder: "例）山田"
                 %ul
                   %li#error-last_name.error-notice-signin
               .signup__inner__group
                 = f.label :'名 (全角)'
                 %span.form-require 必須
                 %br/
-                = f.text_field :first_name, autofocus: true, autocomplete: "first_name", id: "first_name", class: "input-default", placeholder: "例）彩"
+                = f.fields_for :profile, Profile.new do |profile|
+                  = profile.text_field :first_name, autofocus: true, autocomplete: "first_name", id: "first_name", class: "input-default", placeholder: "例）彩"
                 %ul
                   %li#error-first_name.error-notice-signin
               .signup__inner__group
                 = f.label :"姓カナ (全角)"
                 %span.form-require 必須
                 %br/
-                = f.text_field :last_name_kana, autofocus: true, autocomplete: "last_name_kana", id: "last_name_kana", class: "input-default", placeholder: "例）ヤマダ"
+                = f.fields_for :profile, Profile.new do |profile|
+                  = profile.text_field :last_name_kana, autofocus: true, autocomplete: "last_name_kana", id: "last_name_kana", class: "input-default", placeholder: "例）ヤマダ"
                 %ul
                   %li#error-last_name_kana.error-notice-signin
                   %li#error-last_name_kana1.error-notice-signin
@@ -76,7 +85,8 @@
                 = f.label :"名カナ (全角)"
                 %span.form-require 必須
                 %br/
-                = f.text_field :first_name_kana, autofocus: true, autocomplete: "first_name_kana", id: "first_name_kana", class: "input-default", placeholder: "例）アヤ"
+                = f.fields_for :profile, Profile.new do |profile|
+                  = profile.text_field :first_name_kana, autofocus: true, autocomplete: "first_name_kana", id: "first_name_kana", class: "input-default", placeholder: "例）アヤ"
                 %ul
                   %li#error-first_name_kana.error-notice-signin
                   %li#error-first_name_kana1.error-notice-signin
@@ -84,19 +94,20 @@
                 = f.label :生年月日
                 %span.form-require 必須
                 %br/
-                .birthday_select
-                  = f.date_select :birth_date
-                  %span 日
+                = f.fields_for :profile, Profile.new do |profile|
+                  .birthday_select
+                    = raw sprintf(profile.date_select(:birthday, use_month_numbers: true, start_year: 1900, end_year: (Time.now.year), class: ".birthday_select__wrap" ,date_separator: '%s'), '年 ', '月 ') + '日'
                 %ul
                   %li#error-birth_date.error-notice-signin
                 .signup__forminfo
                   ="※ 本人情報は正しく入力してください。会員登録後、修正するにはお時間を頂く場合があります。"
               .signup__inner__group
-                /%iframe(src="https://www.google.com/recaptcha/api2/anchor?ar=1&k=6LfZGCYTAAAAAHoK-s7Lg5OdYg5Fq4susvALmZoc&co=aHR0cHM6Ly93d3cubWVyY2FyaS5jb206NDQz&hl=ja&v=v1555968629716&size=normal&cb=nw8xf9xhent" width="304" height="78" frameborder="0" style="border:0" allowfullscreen)
+                = recaptcha_tags callback: 'recaptchaCallbackFunction'
+                
               .signup__inner__group
                 .signup__notification
                   ="「次へ進む」のボタンを押すことにより、利用規約に同意したものとみなします"
-              .signup-submit.signup-submit-btn.next-step#osuto
+              .signup-submit.signup-submit-btn.next-step1
                 次へ進む
 
     / 電話番号認証
@@ -110,8 +121,8 @@
               .signup__inner__group
                 = f.label :携帯電話の番号
                 %br/
-                = f.fields_for :address, Address.new do |address|
-                  = address.text_field :phone_number, autofocus: true, autocomplete: "nickname", id: "phone_number", class: "input-default", placeholder: "携帯電話の番号"
+                = f.fields_for :profile, Profile.new do |profile|
+                  = profile.text_field :tel, autofocus: true, autocomplete: "tel", id: "phone_number", class: "input-default", placeholder: "携帯電話の番号を入力"
                 %ul
                   %li#error-phone_number.error-notice-signin
                 %p.tel__info
@@ -128,23 +139,45 @@
     .section
       %main.user__container__main
         .signup__container
-          %h2.signup__container--upper 住所入力
+          %h2.signup__container--upper 発送元・お届け先住所入力
           .signup__inner
             .signup__inner__container
               .signup__inner__group
                 = f.fields_for :address, Address.new do |address|
                   .address__group
+                    = address.label :お名前
+                    %span.form-require 必須
+                    %br/
+                    = address.text_field :last_name, autocomplete: "last_name", id: "d_last_name", class: "input-default", placeholder: "例）山田"
+                    %br/
+                    = address.text_field :first_name, autocomplete: "first_name", id: "d_first_name", class: "input-default", placeholder: "例）彩"
+                    %ul
+                      %li#error-d_last_name.error-notice-signin
+                      %li#error-d_first_name.error-notice-signin
+                  .address__group
+                    = address.label :お名前カナ
+                    %span.form-require 必須
+                    %br/
+                    = address.text_field :last_name_kana, autocomplete: "last_name_kana", id: "d_last_name_kana", class: "input-default", placeholder: "例）ヤマダ"
+                    %br/
+                    = address.text_field :first_name_kana, autocomplete: "first_name_kana", id: "d_first_name_kana", class: "input-default", placeholder: "例）アヤ"
+                    %ul
+                      %li#error-d_last_name_kana.error-notice-signin
+                      %li#error-d_last_name_kana1.error-notice-signin
+                      %li#error-d_first_name_kana.error-notice-signin
+                      %li#error-d_first_name_kana1.error-notice-signin
+                  .address__group
                     = address.label :郵便番号
                     %span.form-require 必須
                     %br/
-                    = address.text_field :zipcord, autocomplete: "postsal_code", id: "zipcord", class: "input-default", placeholder: "123-4567"
+                    = address.text_field :zip, autocomplete: "postsal_code", id: "zipcord", class: "input-default", placeholder: "例）123-4567"
                     %ul
                       %li#error-zipcord.error-notice-signin
                   .address__group
                     = address.label :都道府県
                     %span.form-require 必須
                     %br/
-                    = address.select :prefecture, Address.prefs.keys, {}, { class: "input-default", id: "prefecture" }
+                    = address.select :prefectures, Address.prefectures.keys, {}, { class: "input-default", id: "prefecture" }
                     %ul
                       %li#error-prefecture.error-notice-signin
                   .address__group
@@ -158,16 +191,19 @@
                     =address.label :番地
                     %span.form-require 必須
                     %br/
-                    = address.text_field :address, autocomplete: "house_number", id: "address", class: "input-default", placeholder: "例)青山1-1-1"
+                    = address.text_field :block, autocomplete: "house_number", id: "address", class: "input-default", placeholder: "例)青山1-1-1"
                     %ul
                       %li#error-address.error-notice-signin
                   .address__group
                     =address.label :建物名
                     %span.form-any 任意
                     %br/
-                    = address.text_field :building_name, autocomplete: "building_name", id: "building_name", class: "input-default", placeholder: "例)柳ビル103"
-                    %ul
-                      %li#error-building_name.error-notice-signin
+                    = address.text_field :building, autocomplete: "building_name", id: "building_name", class: "input-default", placeholder: "例)柳ビル103"
+                  .address__group
+                    =address.label :電話
+                    %span.form-any 任意
+                    %br/
+                    = address.text_field :tel, autocomplete: "tel", id: "tel", class: "input-default", placeholder: "例)09012345678"
 
               .signup-submit.signup-submit-btn.next-step3
                 次へ進む
@@ -181,12 +217,14 @@
           .signup__inner
             .signup__inner__container
               .signup__inner__group
-                %span カード番号
-                = f.fields_for :card_info, CardInfo.new do |cardinfo|
-                  = cardinfo.text_field :number, autocomplete: "number", id: "number", class: "input-default", placeholder: "半角数字のみ"
+                = f.label :カード番号
+                %span.form-require 必須
+                = f.fields_for :profile, Profile.new do |profile|
+                  = profile.text_field :card_id, id: "number", class: "number2 input-default", placeholder: "半角数字のみ"
                 %ul
                   %li#error-number.error-notice-signin
                   %li#error-number1.error-notice-signin
+                  %li#error-number2.error-notice-signin
                 %ul.card__lineup
                   %li
                     = image_tag("https://www-mercari-jp.akamaized.net/assets/img/card/visa.svg", class: "card--image", width: "49")
@@ -203,30 +241,32 @@
                   %li
                     = image_tag("https://www-mercari-jp.akamaized.net/assets/img/card/discover.svg", class: "card--image", width: "32")
                 .card__block
-                  %label 有効期限
+                  = f.label :有効期限
+                  %span.form-require 必須
                   %br/
-                  = f.fields_for :card_info, CardInfo.new do |cardinfo|
-                    = cardinfo.select :month, ["",1,2,3,4,5,6,7,8,9,10,11,12], {}, { class: "card__block__select", id: "month" }
-                  %span 月
-                  = f.fields_for :card_info, CardInfo.new do |cardinfo|
-                    = cardinfo.select :year, ["",2019,2020,2021,2022,2023,2024,2025,2026], {}, { class: "card__block__select", id: "year" }
-                  %span 年
+                  = f.fields_for :profile, Profile.new do |profile|
+                    = profile.select :card_mm, [["--",],["01",1],["02",2],["03",3],["04",4],["05",5],["06",6],["07",7],["08",8],["09",9],["10",10],["11",11],["12",12]], {}, { class: "card__block__select exp_month2", id: "month" }
+                  = f.label :月
+                  = f.fields_for :profile, Profile.new do |profile|
+                    = profile.select :card_yy, [["--",],["19",2019],["20",2020],["21",2021],["22",2022],["23",2023],["24",2024],["25",2025],["26",2026],["27",2027],["28",2028],["29",2029]], {}, { class: "card__block__select exp_year2", id: "year" }
+                  = f.label :年
                   %ul
                     %li#error-month.error-notice-signin
                     %li#error-year.error-notice-signin
               .signup__inner__group
-                %label セキュリティコード
+                = f.label :セキュリティコード
                 %span.form-require 必須
-                = f.fields_for :card_info, CardInfo.new do |cardinfo|
-                  = cardinfo.text_field :security_code, autocomplete: "house_number", id: "security_code", class: "input-default", placeholder: "半角数字のみ"
+                = f.fields_for :profile, Profile.new do |profile|
+                  = profile.text_field :card_sec_id, id: "security_code", class: "input-default cvc2", placeholder: "カード背面4桁もしくは3桁の番号"
                   %ul
                     %li#error-security_code.error-notice-signin
                     %li#error-security_code1.error-notice-signin
+                    %li#error-security_code2.error-notice-signin
                 .signup__sqcode-text
                   %span ?
                   カード裏面の番号とは？
               .signup-submit.signup-submit-btn.next-step4
-                = f.submit "次へ進む", class: "signup-submit-btn"
+                = f.submit "次へ進む", id: "submit-button2", class: "signup-submit-btn"
 
     / 完了
     .section
@@ -241,7 +281,7 @@
                 %p.fin__message 会員登録が完了しました。
 
               .signup-submit.last-submit
-                / = f.submit "メルカリをはじめる", class: "signup-submit-btn"
-          = link_to root_path, class: "fin__banner" do
-            = image_tag("https://www-mercari-jp.akamaized.net/assets/img/common/common/logo.svg", width: "700px")
-  =render "layouts/session-footer"
+                = link_to root_path, class: "fin__message" do
+                  %button.signup-submit-btn メルカリをはじめる
+                = image_tag("https://www-mercari-jp.akamaized.net/assets/img/common/common/logo.svg", width: "300px", class: "icon_signup")
+  =render "layouts/single-footer"

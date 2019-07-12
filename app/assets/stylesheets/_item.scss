@@ -131,7 +131,7 @@
               .fa-meh{
                 color: #fba933;
                 font-size: 16px;
-              }        
+              }
             }
             &__low{
               margin: 8px 0 0 16px;
@@ -139,7 +139,7 @@
               .fa-frown-open{
                 color: #6ab5d8;
                 font-size: 16px;
-              }        
+              }
             }
           }
           &__name--list{
@@ -158,8 +158,8 @@
 
         &__category{
           width: 117px;
-          height: 73px;
-          line-height: 73px;
+          height: 81px;
+          line-height: 81px;
           @include table();
         }
 
@@ -181,7 +181,7 @@
               text-decoration: underline;
               opacity: 0.7;
             }
-          }          
+          }
         }
         &__condition{
           width: 117px;

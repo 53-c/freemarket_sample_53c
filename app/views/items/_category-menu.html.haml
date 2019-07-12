@@ -1,9 +1,14 @@
 %ul.category-menu__level1
-  %li
-    = link_to 'レディス', '#'
-    %ul.category-menu__level1__level2
+  -categories = Category.all.eager_load(children: :children)
+  - categories.all.each do |category1|
+    - unless category1.parent_id != 0
       %li
-        = link_to 'トップス', '#'
-        %ul.category-menu__level1__level2__level3
-          %li
-            =link_to 'Tシャツ/カットソー(半袖/袖なし)', '#'
+        = link_to category1.name, '#'
+        %ul.category-menu__level1__level2
+          - category1.children.each do |category2|
+            %li
+              = link_to category2.name, '#'
+              %ul.category-menu__level1__level2__level3
+                - category2.children.each do |category3|
+                  %li
+                    =link_to category3.name, '#'

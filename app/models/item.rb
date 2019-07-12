@@ -4,7 +4,7 @@ class Item < ApplicationRecord
   belongs_to :brand, optional: true
   has_one :order_status, dependent: :destroy
   has_many :item_images, dependent: :destroy
-  has_many :comments
+  has_many :comments, dependent: :destroy
   accepts_nested_attributes_for :brand
   accepts_nested_attributes_for :category
   accepts_nested_attributes_for :item_images

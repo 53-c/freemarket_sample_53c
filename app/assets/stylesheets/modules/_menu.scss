@@ -20,9 +20,10 @@
 
         ul {
           display: block;
-
           a{
             color: black;
+            height: 30px;
+            line-height: 30px;
           }
 
           ul {
@@ -30,6 +31,7 @@
           }
 
           li {
+            width: 320px;
             &:hover {
               background-color: #ccc;
               ul {

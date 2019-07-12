@@ -1,0 +1,58 @@
+.search-container {
+  display: flex;
+  margin: 40px auto 0;
+  width: 1020px;
+  .search-sidebar {
+    color: black;
+  }
+  .search-result {
+    width: 750px;
+    &__head {
+      font-size: 22px;
+      margin: 0 0 8px;
+    }
+    &__number {
+      margin: 16px 0;
+      font-size: 12px;
+      color: #333;
+    }
+    &__items {
+      width: auto;
+      display: flex;
+      flex-wrap: wrap;
+      &__box {
+        margin: 0 20px 20px 0;
+        width: 160px;
+        height: auto;
+        position: relative;
+        display: block;
+        &__price {
+          padding: 4px 12px 4px 8px;
+          font-weight: 600;
+          background-color: rgba(0,0,0,0.3);
+          color: #fafafa;
+          border-radius: 0 16px 16px 0;
+          z-index: 2;
+          position: absolute;
+          top: 60%;
+          left:0;
+        }
+        &__text {
+          position: relative;
+          color: #333;
+          font-size: 14px;
+          background-color: #fafafa;
+          height: 42px;
+          padding: 8px 12px;
+          overflow: hidden;
+          font-weight: 400;
+          height: 3em;
+          line-height: 1.5;
+          text-align: left;
+          text-overflow: ellipsis;
+          word-break: break-word;
+        }
+      }
+    }
+  }
+} 

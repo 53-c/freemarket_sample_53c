@@ -1,14 +1,6 @@
 %ul.brand-menu
-  %li
-    = link_to 'シャネル', '#'
-  %li
-    = link_to 'ナイキ', '#'
-  %li
-    = link_to 'ルイ ヴィトン', '#'
-  %li
-    = link_to 'シュプリーム', '#'
-  %li
-    = link_to 'アディダス', '#'
+  - Brand.all.each do |brand|
+    %li
+      = link_to brand.name, '#'
   %li
     = link_to 'ブランド一覧', '#'
-    

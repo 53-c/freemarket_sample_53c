@@ -2,14 +2,15 @@ class ItemsController < ApplicationController
   before_action :set_item, only: [:show]
   before_action :set_category_and_brand_info, only: [:sell, :edit, :update, :create]
 
-
-  def index 
+  def index
   end
 
   def new
   end
 
   def show
+    @comment = Comment.new
+    @comments = @item.comments.includes(:user)
   end
 
   def sell
@@ -22,37 +23,10 @@ class ItemsController < ApplicationController
     gon.category = Category.all
 
   end
-  def edit
-    @items = Item.find(params[:id])
-    @items.build_brand
-    @items.build_category
-    @items.item_images.build
-
-    @categories = Category.where(parent_id: 0)
-    gon.category = Category.all
-    gon.category_user_select = Item.find(params[:id])
-    gon.category_user_select_category = Item.find(params[:id]).category
-    gon.items_images = @items.item_images
-  end
-
-  def update
-    @items = Item.find(params[:id])
-    items_params
-    if @items.update(@params_items)
-    else
-      @items = Item.new(@params_items)
-      respond_to do |format|
-        format.json
-      end
-    end
-  end
 
   def create
     items_params
-    @items = Item.new(@params_items)
-   
-    if @items.save
-      OrderStatus.create(status: 1, item_id: Item.all.last().id)
+    if @items.update(@params_items)
     else
       render :sell
       respond_to do |format|
@@ -61,10 +35,41 @@ class ItemsController < ApplicationController
     end
   end
 
+  def edit
+    @items.build_brand
+    @items.build_category
+    @items.item_images.build
+
+    @categories = Category.where(parent_id: 0)
+    gon.category = Category.all
+    gon.category_user_select = Category.find(params[:id])
+    gon.items_images = @items.item_images
+  end
+
+  def update
+    items_params
+    @items = Item.new(@params_items)
+   
+    if @items.save
+      OrderStatus.create(status: 1, item_id: Item.all.last().id)
+    else
+      @items = Item.new(@params_items)
+      respond_to do |format|
+        format.json
+      end
+    end
+  end
+
+  
+  def destroy
+    @item = Item.find(params[:id])
+    @item.destroy
+    redirect_to controller: :tops, action: :index
+  end
+
   def purchase
     
-    # @item = Item.find(params[:item_id])
-    @item = Item.find(1) #仮置き。実際は上の記述を使う
+    @item = Item.find(params[:item_id])
     
     Payjp.api_key = ENV['PAYJP_TEST_SECRET_KEY']
     begin
@@ -73,9 +78,9 @@ class ItemsController < ApplicationController
       redirect_to items_path
     end
     
-    @item.update(buyer_id: current_user.id, selled_at: "#{DateTime.now}", ) #buyer_idの値は仮置き
+    @item.update(buyer_id: current_user.id, selled_at: "#{DateTime.now}", )
 
-    @status = OrderStatus.find(1)
+    @status = OrderStatus.find(params[:item_id])
     
     @status.update(status: 3)
     redirect_to '/items/complete' #このパスは仮置き
@@ -84,6 +89,9 @@ class ItemsController < ApplicationController
   def complete
   end
 
+  def search
+    @items = Item.where('name LIKE(?) OR detail LIKE(?)', "%#{params[:keyword]}%", "%#{params[:keyword]}%")
+  end
 
   private
   def items_params
@@ -130,6 +138,5 @@ class ItemsController < ApplicationController
     @categories = Category.all
     @brands = Brand.all
   end
-
 
 end

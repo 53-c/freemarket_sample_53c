@@ -8,8 +8,8 @@
           = link_to new_user_registration_path ,class: 'btn-default btn-mail' do
             メールアドレスで登録する
             %i.far.fa-envelope
-          = link_to "Facebookで登録する", "#", class: "btn-default btn-sns btn-sns-facebook"
-          = link_to "Googleで登録する", "#", class: "btn-default btn-sns btn-sns-google"
+          = link_to "Facebookで登録する", user_facebook_omniauth_authorize_path, class: "btn-default btn-sns btn-sns-facebook"
+          = link_to "Googleで登録する", user_google_omniauth_authorize_path, class: "btn-default btn-sns btn-sns-google"
 
   = render 'layouts/single-footer'
   -# %script{src: "https://apis.google.com/js/platform.js?onload=renderButton", async: "defer"}

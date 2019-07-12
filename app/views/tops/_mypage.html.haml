@@ -3,7 +3,7 @@
     .my-page__top__image
       = link_to image_tag("https://static.mercdn.net/images/member_photo_noimage_thumb.png", class: "person")
       %h2.my-page__top__name
-        真玉勇作
+        = @user.profile.nickname
       .my-page__top__detail
         .my-page__top__detail__evaluation
           評価

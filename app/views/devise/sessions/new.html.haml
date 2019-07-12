@@ -13,13 +13,15 @@
         .other-account-nav__facebook
           .other-account-nav__facebook__icon
             %i.fab.fa-facebook-square
-          .other-account-nav__facebook__btn
-            = link_to 'Facebookでログイン'
+          = link_to "Facebookでログイン",user_facebook_omniauth_authorize_path, class:"other-account-nav__facebook__btn"
+          -# .other-account-nav__facebook__btn
+          -#   = link_to "Facebookでログイン","user_facebook_omniauth_authorize_path"
         .other-account-nav__google
           .other-account-nav__google__icon
             %i.fab.fa-google
-          .other-account-nav__google__btn
-            = link_to 'Googleでログイン'
+          = link_to 'Googleでログイン',user_google_omniauth_authorize_path,class:"other-account-nav__google__btn"
+          -# .other-account-nav__google__btn
+          -#   = link_to 'Googleでログイン',"user_google_oauth2_omniauth_authorize_path"
       .login-nav
         .form-container
           = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|

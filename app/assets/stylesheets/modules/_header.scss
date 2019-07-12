@@ -283,5 +283,10 @@
     &:visited {
       color: $blue;
     }
+
+    &:hover {
+      background-color: $blue;
+      color: white;
+    }
   }
 }

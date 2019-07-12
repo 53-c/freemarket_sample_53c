@@ -1,4 +1,9 @@
 .sell-button
-  = link_to "#", class: "button" do
-    %h3.sell-button__text 出品
-    %i.fas.fa-camera
+  - if user_signed_in?
+    = link_to "/sell", class: "button" do
+      %h3.sell-button__text 出品
+      %i.fas.fa-camera
+  - else
+    = link_to "/users/sign_in", class: "button" do
+      %h3.sell-button__text 出品
+      %i.fas.fa-camera

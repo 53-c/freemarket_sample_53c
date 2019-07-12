@@ -9,7 +9,7 @@
     }
   }
 
-  .items-box{
+  .category-items-box{
     padding: 40px 0;
 
     .product-name{
@@ -20,7 +20,7 @@
       font-weight: bold;
     }
 
-    .product-container{
+    .product-container-ladys{
       width: 940px;
       margin: 0 auto;
 
@@ -46,37 +46,21 @@
       }
 
       &__contents{
-        height: 330px;
+        height: 320px;
         display: flex;
         justify-content: space-between;
-
-        &__child{
-          margin-left: 20px;
-          width: 213px;
-          background: $white;
-          position: relative;
-
-          &__image-size{
-            width: 213px;
-            height: 213px;
-          }
-
-          &__image-block-size{
-            display: block;
-            position: absolute;
-            top: 0;
-            left: 0;
-            height:100%; 
-            width: 100%; 
-            z-index: 1;
-          }
-
-          &__body{
-            padding: 16px;
-            height: 110px;
-            box-sizing: border-box;
-            position: absolute;
-            top: 220px;
+        &__child__body{
+          padding: 16px;
+          height: 250px;
+          box-sizing: border-box;
+          position: absolute;
+          top: 650px;
+          display: flex;
+          &__info{
+            background-color: #fff;
+            height: 90px;
+            justify-content: space-between;
+            margin-right: 20px;
 
             &__name{
               font-size: 16px;
@@ -87,50 +71,686 @@
               line-height: 1.5;
               word-break: break-word;
               white-space: normal;
+              text-overflow: ellipsis;
+              width:213px;
+              text-align: left;
+              display: flex;
+              margin-left: 10px;
+              padding-top: 10px;
+              
             }
-
-            &__info{
-              height: 17px;
+            &__2{
               display: flex;
               justify-content: space-between;
-              margin-top: 8px; 
-              
+              margin-left: 2px;
+
               &__price{
                 font-size: 16px;
                 font-weight: bold;
+                margin-left: 10px;
               }
 
               &__iine{
+                .fa-heart{
+                  color: $light_gray;
+                  margin-right: 10px;
+                }
               }
-              .fa-heart{
-                color: $light_gray;
-              }
-            }
-            &__tax{
-              font-size: 10px;
             }
           }
         }
       }
-       
-      &__all{
-        width: 99.5%;
-        height: 64px;
-        padding: 20px 0 30px;
-        box-sizing: border-box;
-        text-align: right;
-        line-height: 12px;
-        font-size: 16px;
+    .product-container-ladys__contents__child__body__image{
+      height: 213px;
+      width: 213px;
+      margin-right: 20px;
+    }
+    }
 
-        a{
+    .product-container-mens{
+      width: 940px;
+      margin: 0 auto;
+
+      &__title{
+        margin: 26px 11px;
+        text-align: center;
+        height: 22px;
+
+        a {
           color: #0099e8;
-          font-size: 85%;
 
           &:hover{
             opacity: 0.7;
             text-decoration: underline;
           }
         }
+
+        &__link-btn{
+        font-size: 22px;
+        font-weight: bold;
+        line-height: 1.1;
+        }
+      }
+
+      &__contents{
+        height: 320px;
+        display: flex;
+        justify-content: space-between;
+
+        &__child__body{
+          padding: 16px;
+          height: 250px;
+          box-sizing: border-box;
+          position: absolute;
+          top: 1120px;
+          display: flex;
+
+          &__info{
+            background-color: #fff;
+            height: 90px;
+            justify-content: space-between;
+            margin-right: 20px;
+
+            &__name{
+              font-size: 16px;
+              overflow: hidden;
+              position: relative;
+              font-weight: 400;
+              height: 3em;
+              line-height: 1.5;
+              word-break: break-word;
+              white-space: normal;
+              display: flex;
+              margin-left: 10px;
+              padding-top: 10px;
+              text-overflow: ellipsis;
+              width:213px;
+              text-align: left;
+            }
+            &__2{
+              display: flex;
+              justify-content: space-between;
+              margin-left: 2px;
+
+              &__price{
+                font-size: 16px;
+                font-weight: bold;
+                margin-left: 10px;
+              }
+
+              &__iine{
+                .fa-heart{
+                  color: $light_gray;
+                  margin-right: 10px;
+                }
+              }
+            }
+          }
+        }
+      }
+    .product-container-mens__contents__child__body__image{
+      height: 213px;
+      width: 213px;
+      margin-right: 20px;
+    }
+    }
+
+    .product-container-babykids{
+      width: 940px;
+      margin: 0 auto;
+
+      &__title{
+        margin: 26px 11px;
+        text-align: center;
+        height: 22px;
+
+        a {
+          color: #0099e8;
+
+          &:hover{
+            opacity: 0.7;
+            text-decoration: underline;
+          }
+        }
+
+        &__link-btn{
+        font-size: 22px;
+        font-weight: bold;
+        line-height: 1.1;
+        }
+      }
+
+      &__contents{
+        height: 320px;
+        display: flex;
+        justify-content: space-between;
+
+        &__child__body{
+          padding: 16px;
+          height: 250px;
+          box-sizing: border-box;
+          position: absolute;
+          top: 1590px;
+          display: flex;
+
+          &__info{
+            background-color: #fff;
+            height: 90px;
+            justify-content: space-between;
+            margin-right: 20px;
+
+            &__name{
+              font-size: 16px;
+              overflow: hidden;
+              position: relative;
+              font-weight: 400;
+              height: 3em;
+              line-height: 1.5;
+              word-break: break-word;
+              white-space: normal;
+              display: flex;
+              margin-left: 10px;
+              padding-top: 10px;
+              text-overflow: ellipsis;
+              width:213px;
+              text-align: left;
+            }
+            &__2{
+              display: flex;
+              justify-content: space-between;
+              margin-left: 2px;
+
+              &__price{
+                font-size: 16px;
+                font-weight: bold;
+                margin-left: 10px;
+              }
+
+              &__iine{
+                .fa-heart{
+                  color: $light_gray;
+                  margin-right: 10px;
+                }
+              }
+            }
+          }
+        }
+      }
+    .product-container-babykids__contents__child__body__image{
+      height: 213px;
+      width: 213px;
+      margin-right: 20px;
+    }
+    }
+
+    .product-container-cosme{
+      width: 940px;
+      margin: 0 auto;
+
+      &__title{
+        margin: 26px 11px;
+        text-align: center;
+        height: 22px;
+
+        a {
+          color: #0099e8;
+
+          &:hover{
+            opacity: 0.7;
+            text-decoration: underline;
+          }
+        }
+
+        &__link-btn{
+        font-size: 22px;
+        font-weight: bold;
+        line-height: 1.1;
+        }
+      }
+
+      &__contents{
+        height: 320px;
+        display: flex;
+        justify-content: space-between;
+
+        &__child__body{
+          padding: 16px;
+          height: 250px;
+          box-sizing: border-box;
+          position: absolute;
+          top: 2060px;
+          display: flex;
+
+          &__info{
+            background-color: #fff;
+            height: 90px;
+            justify-content: space-between;
+            margin-right: 20px;
+
+            &__name{
+              font-size: 16px;
+              overflow: hidden;
+              position: relative;
+              font-weight: 400;
+              height: 3em;
+              line-height: 1.5;
+              word-break: break-word;
+              white-space: normal;
+              display: flex;
+              margin-left: 10px;
+              padding-top: 10px;
+              text-overflow: ellipsis;
+              width:213px;
+              text-align: left;
+            }
+            &__2{
+              display: flex;
+              justify-content: space-between;
+              margin-left: 2px;
+
+              &__price{
+                font-size: 16px;
+                font-weight: bold;
+                margin-left: 10px;
+              }
+
+              &__iine{
+                .fa-heart{
+                  color: $light_gray;
+                  margin-right: 10px;
+                }
+              }
+            }
+          }
+        }
+      }
+    .product-container-cosme__contents__child__body__image{
+      height: 213px;
+      width: 213px;
+      margin-right: 20px;
+    }
+    }
+  }
+
+  .brand-items-box{
+    padding: 5px 0;
+
+    .product-name{
+      height: 39px;
+      line-height: 1.4;
+      font-size: 28px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .product-container-zyaneru{
+      width: 940px;
+      margin: 0 auto;
+
+      &__title{
+        margin: 26px 11px;
+        text-align: center;
+        height: 22px;
+
+        a {
+          color: #0099e8;
+
+          &:hover{
+            opacity: 0.7;
+            text-decoration: underline;
+          }
+        }
+
+        &__link-btn{
+        font-size: 22px;
+        font-weight: bold;
+        line-height: 1.1;
+        }
+      }
+
+      &__contents{
+        height: 320px;
+        display: flex;
+        justify-content: space-between;
+
+        &__child__body{
+          padding: 16px;
+          height: 250px;
+          box-sizing: border-box;
+          position: absolute;
+          top: 2610px;
+          display: flex;
+
+          &__info{
+            background-color: #fff;
+            height: 90px;
+            justify-content: space-between;
+            margin-right: 20px;
+
+            &__name{
+              font-size: 16px;
+              overflow: hidden;
+              position: relative;
+              font-weight: 400;
+              height: 3em;
+              line-height: 1.5;
+              word-break: break-word;
+              white-space: normal;
+              display: flex;
+              margin-left: 10px;
+              padding-top: 10px;
+              text-overflow: ellipsis;
+              width:213px;
+              text-align: left;
+            }
+            &__2{
+              display: flex;
+              justify-content: space-between;
+              margin-left: 2px;
+
+              &__price{
+                font-size: 16px;
+                font-weight: bold;
+                margin-left: 10px;
+              }
+
+              &__iine{
+                .fa-heart{
+                  color: $light_gray;
+                  margin-right: 10px;
+                }
+              }
+            }
+          }
+        }
+      }
+    .product-container-zyaneru__contents__child__body__image{
+      height: 213px;
+      width: 213px;
+      margin-right: 20px;
+    }
+    }
+
+    .product-container-shufureem{
+      width: 940px;
+      margin: 0 auto;
+
+      &__title{
+        margin: 26px 11px;
+        text-align: center;
+        height: 22px;
+
+        a {
+          color: #0099e8;
+
+          &:hover{
+            opacity: 0.7;
+            text-decoration: underline;
+          }
+        }
+
+        &__link-btn{
+        font-size: 22px;
+        font-weight: bold;
+        line-height: 1.1;
+        }
+      }
+
+      &__contents{
+        height: 320px;
+        display: flex;
+        justify-content: space-between;
+
+        &__child__body{
+          padding: 16px;
+          height: 250px;
+          box-sizing: border-box;
+          position: absolute;
+          top: 3080px;
+          display: flex;
+
+          &__info{
+            background-color: #fff;
+            height: 90px;
+            justify-content: space-between;
+            margin-right: 20px;
+
+            &__name{
+              font-size: 16px;
+              overflow: hidden;
+              position: relative;
+              font-weight: 400;
+              height: 3em;
+              line-height: 1.5;
+              word-break: break-word;
+              white-space: normal;
+              display: flex;
+              margin-left: 10px;
+              padding-top: 10px;
+              text-overflow: ellipsis;
+              width:213px;
+              text-align: left;
+            }
+            &__2{
+              display: flex;
+              justify-content: space-between;
+              margin-left: 2px;
+
+              &__price{
+                font-size: 16px;
+                font-weight: bold;
+                margin-left: 10px;
+              }
+
+              &__iine{
+                .fa-heart{
+                  color: $light_gray;
+                  margin-right: 10px;
+                }
+              }
+            }
+          }
+        }
+      }
+    .product-container-shufureem__contents__child__body__image{
+      height: 213px;
+      width: 213px;
+      margin-right: 20px;
+    }
+    }
+
+    .product-container-ruiweton{
+      width: 940px;
+      margin: 0 auto;
+
+      &__title{
+        margin: 26px 11px;
+        text-align: center;
+        height: 22px;
+
+        a {
+          color: #0099e8;
+
+          &:hover{
+            opacity: 0.7;
+            text-decoration: underline;
+          }
+        }
+
+        &__link-btn{
+        font-size: 22px;
+        font-weight: bold;
+        line-height: 1.1;
+        }
+      }
+
+      &__contents{
+        height: 320px;
+        display: flex;
+        justify-content: space-between;
+
+        &__child__body{
+          padding: 16px;
+          height: 250px;
+          box-sizing: border-box;
+          position: absolute;
+          top: 3550px;
+          display: flex;
+
+          &__info{
+            background-color: #fff;
+            height: 90px;
+            justify-content: space-between;
+            margin-right: 20px;
+
+            &__name{
+              font-size: 16px;
+              overflow: hidden;
+              position: relative;
+              font-weight: 400;
+              height: 3em;
+              line-height: 1.5;
+              word-break: break-word;
+              white-space: normal;
+              display: flex;
+              margin-left: 10px;
+              padding-top: 10px;
+              text-overflow: ellipsis;
+              width:213px;
+              text-align: left;
+            }
+            &__2{
+              display: flex;
+              justify-content: space-between;
+              margin-left: 2px;
+
+              &__price{
+                font-size: 16px;
+                font-weight: bold;
+                margin-left: 10px;
+              }
+
+              &__iine{
+                .fa-heart{
+                  color: $light_gray;
+                  margin-right: 10px;
+                }
+              }
+            }
+          }
+        }
+      }
+    .product-container-ruiweton__contents__child__body__image{
+      height: 213px;
+      width: 213px;
+      margin-right: 20px;
+    }
+    }
+
+    .product-container-naigi{
+      width: 940px;
+      margin: 0 auto;
+
+      &__title{
+        margin: 26px 11px;
+        text-align: center;
+        height: 22px;
+
+        a {
+          color: #0099e8;
+
+          &:hover{
+            opacity: 0.7;
+            text-decoration: underline;
+          }
+        }
+
+        &__link-btn{
+        font-size: 22px;
+        font-weight: bold;
+        line-height: 1.1;
+        }
+      }
+
+      &__contents{
+        height: 320px;
+        display: flex;
+        justify-content: space-between;
+
+        &__child__body{
+          padding: 16px;
+          height: 250px;
+          box-sizing: border-box;
+          position: absolute;
+          top: 4020px;
+          display: flex;
+
+          &__info{
+            background-color: #fff;
+            height: 90px;
+            justify-content: space-between;
+            margin-right: 20px;
+
+            &__name{
+              font-size: 16px;
+              overflow: hidden;
+              position: relative;
+              font-weight: 400;
+              height: 3em;
+              line-height: 1.5;
+              word-break: break-word;
+              white-space: normal;
+              display: flex;
+              margin-left: 10px;
+              padding-top: 10px;
+              text-overflow: ellipsis;
+              width:213px;
+              text-align: left;
+            }
+            &__2{
+              display: flex;
+              justify-content: space-between;
+              margin-left: 2px;
+
+              &__price{
+                font-size: 16px;
+                font-weight: bold;
+                margin-left: 10px;
+              }
+
+              &__iine{
+                .fa-heart{
+                  color: $light_gray;
+                  margin-right: 10px;
+                }
+              }
+            }
+          }
+        }
+      }
+    .product-container-naigi__contents__child__body__image{
+      height: 213px;
+      width: 213px;
+      margin-right: 20px;
+    }
+    }
+  }
+  .product-container__all{
+    height: 64px;
+    width: 930px;
+    padding: 35px 0 40px 10px;
+    box-sizing: border-box;
+    text-align: right;
+    line-height: 12px;
+    font-size: 16px;
+
+    a{
+      color: #0099e8;
+      font-size: 85%;
+
+      &:hover{
+        opacity: 0.7;
+        text-decoration: underline;
       }
     }
   }

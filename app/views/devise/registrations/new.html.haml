@@ -39,7 +39,7 @@
                 %span.form-require 必須
                 %br/
                 = f.fields_for :profile, Profile.new do |profile|
-                  = profile.text_field :nickname, autofocus: true, autocomplete: "nickname", id: "nickname", class: "input-default", placeholder: "例）メルカリ太郎"
+                  = profile.text_field :nickname, autofocus: true, autocomplete: "nickname", id: "nickname", class: "input-default", placeholder: "例）メルカリ太郎",type:"text"
                 %ul
                   %li#error-nicnname.error-notice-signin
 
@@ -113,13 +113,15 @@
                 %br/
                 = f.fields_for :profile, Profile.new do |profile|
                   .birthday_select
-                    = raw sprintf(profile.date_select(:birthday, use_month_numbers: true, start_year: 1900, end_year: (Time.now.year), class: ".birthday_select__wrap" ,date_separator: '%s'), '年 ', '月 ') + '日'
+                    = raw sprintf(profile.date_select(:birthday, use_month_numbers: true, start_year: 1900, end_year: (Time.now.year), class: ".birthday_select__wrap" ,date_separator: '%s',prompt: '--'), '年 ', '月 ') + '日'
                 %ul
                   %li#error-birth_date.error-notice-signin
+                
                 .signup__forminfo
                   ="※ 本人情報は正しく入力してください。会員登録後、修正するにはお時間を頂く場合があります。"
               .signup__inner__group
-                /%iframe(src="https://www.google.com/recaptcha/api2/anchor?ar=1&k=6LfZGCYTAAAAAHoK-s7Lg5OdYg5Fq4susvALmZoc&co=aHR0cHM6Ly93d3cubWVyY2FyaS5jb206NDQz&hl=ja&v=v1555968629716&size=normal&cb=nw8xf9xhent" width="304" height="78" frameborder="0" style="border:0" allowfullscreen)
+                = recaptcha_tags callback: 'recaptchaCallbackFunction'
+
               .signup__inner__group
                 .signup__notification
                   ="「次へ進む」のボタンを押すことにより、利用規約に同意したものとみなします"
