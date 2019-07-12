@@ -63,7 +63,7 @@
             }
           }
         }
-        .file-send-btn{
+        #file-send-btn{
           height: 162px;
           display: none;
         }
@@ -474,6 +474,10 @@ textarea:focus{
 
 #preview--next{
   display: flex;
+
+  #file-send-btn--next{
+    display: none;
+  }
 
   ul{
     width : 112.4px;

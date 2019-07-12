@@ -98,7 +98,7 @@ class ItemsController < ApplicationController
       @params_brands = @params_brands[:id]
     end
 
-    @params_items = params.require(:item).permit(:name, :detail, :condition, :delivery_cost, :delivery_prefecture, :days_to_ship, :delivery_method, :price, item_images_attributes: [:image] ).merge(user_id: current_user.id, sales_condition: 0, category_id: @params_categories[:id], brand_id: @params_brands)
+    @params_items = params.require(:item).permit(:name, :detail, :condition, :delivery_cost, :delivery_prefecture, :days_to_ship, :delivery_method, :price, item_images_attributes: [:image] ).merge(user_id: 1, sales_condition: 0, category_id: @params_categories[:id], brand_id: @params_brands)
     params_int(@params_items)
   end
 

@@ -16,13 +16,13 @@
                 = f.fields_for :item_images do |fin|
                   %label#file-drop-zone
                     %i.fas.fa-camera
-                    =fin.file_field :image, class: "file-send-btn", multiple: true
+                    =fin.file_field :image, id: "file-send-btn", multiple: true
             .sell-box_container__drop-box--next
               #preview--next
                 = f.fields_for :item_images do |fin|
                   %label#file-drop-zone--next
                     %i.fas.fa-camera
-                    =fin.file_field :image, class: "file-send-btn", multiple: true
+                    =fin.file_field :image, id: "file-send-btn--next", multiple: true
         .sell-content
           .form_item-name
             %label 商品名

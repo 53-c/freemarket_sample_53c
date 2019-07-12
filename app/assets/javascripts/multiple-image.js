@@ -215,11 +215,23 @@ var current_url = location.href;
     })
 
     // ファイルから選択したファイルを画像で表示
-    $(document).on('change','.file-send-btn',function(e){  // ファイル選択で選択したファイルをupload_filesに格納する。
+    $('#file-send-btn').on('change',function(e){  // ファイル選択で選択したファイルをupload_filesに格納する。
       var input_file = e.target.files;
-      $('#product-sell-btn').prop('disabled', false);
-      console.log(upload_files)
-
+      console.log(document);
+      // $('#product-sell-btn').prop('disabled', false);
+  
+      if(input_file.length != 0){
+        upload_files.push(input_file);  // upload_filesに選択ファイルを格納する。
+        display_image(input_file[0]); // ドロップゾーンに選択ファイルを表示する。
+        adjust_file_field(); // ドロップゾーンのサイズ調整。
+        display_dropZone(); // 上段のドロップゾーンが埋まれば、次のドロップゾーンを表示。
+      }
+    });
+  
+    $('#file-send-btn--next').on('change',function(e){  // ファイル選択で選択したファイルをupload_filesに格納する。
+      var input_file = e.target.files;
+      // $('#product-sell-btn').prop('disabled', false);
+  
       if(input_file.length != 0){
         upload_files.push(input_file);  // upload_filesに選択ファイルを格納する。
         display_image(input_file[0]); // ドロップゾーンに選択ファイルを表示する。
