@@ -3,12 +3,10 @@ class ItemsController < ApplicationController
   before_action :set_category_and_brand_info, only: [:sell, :edit, :update, :create]
 
 
-  def index
-    
+  def index 
   end
 
   def new
-    
   end
 
   def show
@@ -75,7 +73,7 @@ class ItemsController < ApplicationController
       redirect_to items_path
     end
     
-    @item.update(buyer_id: 1, selled_at: "#{DateTime.now}", ) #buyer_idの値は仮置き
+    @item.update(buyer_id: current_user.id, selled_at: "#{DateTime.now}", ) #buyer_idの値は仮置き
 
     @status = OrderStatus.find(1)
     

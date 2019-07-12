@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   get 'signup' => 'users#signup'
   get 'logout' => 'users#logout'
   get 'sell' => 'items#sell'
+  get 'download' => 'items#download'
+
 
   get  'new' => 'registrations#new'
   get  'address' => 'registrations#address'
@@ -19,6 +21,8 @@ Rails.application.routes.draw do
   get  'credit' => 'registrations#credit'
   get  'sns' => 'registrations#sns'
   get  'phone' => 'registrations#phone'
+
+  get  'get' => 'registrations#phone'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   get 'mypage' => 'users#show'

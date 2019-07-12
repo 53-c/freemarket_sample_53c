@@ -96,6 +96,10 @@ GEM
     diff-lcs (1.3)
     domain_name (0.5.20180417)
       unf (>= 0.0.5, < 1.0.0)
+    dotenv (2.7.4)
+    dotenv-rails (2.7.4)
+      dotenv (= 2.7.4)
+      railties (>= 3.2, < 6.1)
     equatable (0.6.1)
     erb2haml (0.1.5)
       html2haml
@@ -394,6 +398,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   debase (= 0.2.2)
   devise
+  dotenv-rails
   erb2haml
   factory_bot_rails
   faker
