@@ -26,7 +26,9 @@ class ItemsController < ApplicationController
 
   def create
     items_params
-    if @items.update(@params_items)
+    @items = Item.new(@params_items)
+    if @items.save
+      OrderStatus.create(status: 1, item_id: Item.all.last().id)
     else
       render :sell
       respond_to do |format|
@@ -36,24 +38,34 @@ class ItemsController < ApplicationController
   end
 
   def edit
+    @items = Item.find(params[:id])
     @items.build_brand
     @items.build_category
     @items.item_images.build
 
     @categories = Category.where(parent_id: 0)
     gon.category = Category.all
-    gon.category_user_select = Category.find(params[:id])
+    gon.category_user_select = Item.find(params[:id])
+    gon.category_user_select_category = Item.find(params[:id]).category
     gon.items_images = @items.item_images
   end
 
+  # def download
+  #   @image_data = []
+  #   image_data = Item.find(params[:id]).item_images
+  #   image_data.each do |image|
+  #     @image_data << image.image
+  #   filepath = @image_data.image.current_path
+  #   stat = File::stat(filepath)
+  #   send_file(filepath, :filename => @image_data.image_identifier, :length => stat.size)
+  # end
+
+
   def update
     items_params
-    @items = Item.new(@params_items)
-   
-    if @items.save
-      OrderStatus.create(status: 1, item_id: Item.all.last().id)
+    @items = Item.find(params[:id])
+    if @items.update(@params_items)
     else
-      @items = Item.new(@params_items)
       respond_to do |format|
         format.json
       end
@@ -104,7 +116,7 @@ class ItemsController < ApplicationController
       @params_brands = @params_brands[:id]
     end
 
-    @params_items = params.require(:item).permit(:name, :detail, :condition, :delivery_cost, :delivery_prefecture, :days_to_ship, :delivery_method, :price, item_images_attributes: [:image] ).merge(user_id: 1, sales_condition: 0, category_id: @params_categories[:id], brand_id: @params_brands)
+    @params_items = params.require(:item).permit(:name, :detail, :condition, :delivery_cost, :delivery_prefecture, :days_to_ship, :delivery_method, :price, item_images_attributes: [:image] ).merge(user_id: current_user.id, sales_condition: 0, category_id: @params_categories, brand_id: @params_brands)
     params_int(@params_items)
   end
 

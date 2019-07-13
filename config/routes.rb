@@ -13,10 +13,7 @@ Rails.application.routes.draw do
   get 'signup' => 'users#signup'
   get 'logout' => 'users#logout'
   get 'sell' => 'items#sell'
-  get 'download' => 'items#download'
-
   get 'mypage' => 'users#show'
-
   get 'tops/edit' => 'tops#edit'
   
   resources :items do
@@ -28,6 +25,9 @@ Rails.application.routes.draw do
     end
     collection do
       get 'search'
+    end
+    member do 
+      get :download
     end
     resources :comments, only: [:create]
   end
