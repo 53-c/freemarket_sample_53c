@@ -24,7 +24,7 @@ Rails.application.routes.draw do
       get 'complete'
     end
     collection do
-      get 'search'
+      match 'search' => 'items#search', via: [:get, :post]
     end
     collection do
       get 'selling'

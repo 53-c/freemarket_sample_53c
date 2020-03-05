@@ -5,14 +5,14 @@
     - breadcrumb :keyword
     = breadcrumbs separator: " &rsaquo; "
   %main.search-container
-    .search-sidebar
+    = render partial: 'search_sidebar'
     .search-result
       %h2.search-result__head
         #{params[:keyword]} の検索結果
       .search-result__number
         #{@items.length}件表示
       .search-result__items
-        = render partial:'search_result_items',collection:@items,as:'item'
+        = render partial:'search_result_items', collection: @items, as:'item'
 
   %footer.footer
     = render "layouts/aside"

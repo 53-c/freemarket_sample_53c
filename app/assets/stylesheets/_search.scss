@@ -3,8 +3,74 @@
   margin: 40px auto 0;
   width: 1020px;
   .search-sidebar {
-    color: black;
+    width: 280px;
+    margin: 0 40px 0 0;
+    .item_search {
+      #q_sorts {
+        height: 48px;
+        padding: 0 16px;
+        border: 1px solid #ccc;
+        display: flex;
+      }
+    }
+    &__box {
+      display: block;
+      box-shadow: none;
+      padding: 16px;
+      margin: 40px 0 0;
+      background-color: #fff;
+      &__head {
+        font-size: 16px;
+        display: block;
+        text-align: left;
+        font-weight: bold;
+      }
+      &__form-group {
+        margin: 40px 0 0;
+        &__label {
+          font-weight: 600;
+          font-size: 14px;
+        }
+        &__search-text {
+          margin: 8px 0 0;
+          input {
+            padding: 10px 16px 8px;
+            height: 48px;
+            border-radius: 4px;
+            line-height: 1.5;
+            font-size: 16px;
+          }
+        }
+        &__search-select {
+          margin: 8px 0 0;
+          select {
+            padding: 0 16px;
+            height: 48px;
+            border-radius: 4px;
+            line-height: 1.5;
+            font-size: 16px;
+          }
+        }
+        &__search-price {
+          display: flex;
+          margin: 8px 0 0;
+          &__price {
+            width: 50%;
+            input {
+              height: 48px;
+              padding: 10px 16px 8px;
+            }
+          }
+        }
+      }
+      &__submit input {
+        background-color: red;
+        margin: 40px 0 0;
+        color: #fff;
+      }
+    }
   }
+
   .search-result {
     width: 750px;
     &__head {

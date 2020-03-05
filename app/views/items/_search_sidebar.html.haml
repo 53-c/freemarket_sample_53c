@@ -1,0 +1,34 @@
+.search-sidebar
+  = search_form_for @search, url: search_items_path, html: { method: :post } do |f|
+    = f.select(:sorts, {'並び替え': 'id desc', '価格の安い順': 'price asc', '価格の高い順': 'price desc', '出品の古い順': 'updated_at asc', '出品の新しい順': 'updated_at desc' }, { selected: params[:q][:sorts] }, { onchange: 'this.form.submit()'} )
+  
+  .search-sidebar__box
+    %h3.search-sidebar__box__head
+      詳細検索
+    = search_form_for @keyword, url: search_items_path, html: { method: :post } do |f|
+      .search-sidebar__box__form-group
+        .search-sidebar__box__form-group__label 
+          キーワードを追加する
+        = f.text_field :name_cont, placeholder: '例)値下げ', class: 'search-text-field'
+      .search-sidebar__box__form-group
+        .search-sidebar__box__form-group__label 
+          カテゴリーを選択する
+        .search-sidebar__box__form-group__search-select
+          = f.collection_select :category_id_eq, @category, :id, :name, include_blank: 'すべて'
+      .search-sidebar__box__form-group
+        .search-sidebar__box__form-group__label 
+          ブランド名から探す
+        .search-sidebar__box__form-group__search-select
+          = f.collection_select :brand_id_eq, @brands, :id, :name, include_blank: '指定なし'
+        
+      .search-sidebar__box__form-group
+        .search-sidebar__box__form-group__label 
+          価格
+        .search-sidebar__box__form-group__search-price
+          .search-sidebar__box__form-group__search-price__price
+            = f.text_field :price_gteq, placeholder: '¥ Min'
+          .search-sidebar__box__form-group__search-price__price
+            = f.text_field :price_lteq, placeholder: '¥ Max'
+
+      .search-sidebar__box__submit
+        = f.submit '検索'
